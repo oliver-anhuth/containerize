@@ -1,1 +1,1 @@
-# containerize
+# Create container images for various project types

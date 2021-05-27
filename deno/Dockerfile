@@ -1,0 +1,59 @@
+# Prerequisites:
+# ./src/main.ts     - main entry point of the application
+# ./import_map.json - mappings for imports
+# ./lock.json       - lock file for remote dependencies
+
+# Start from slim image
+FROM debian:buster-slim
+
+# Application user and directory
+ENV APP_USER deno
+ENV APP_UID 1993
+ENV APP_DIR /app
+
+# Deno version and installation directory
+ENV DENO_VERSION=1.10.2
+ENV DENO_INSTALL_ROOT /usr/local
+
+# Install Deno binary (adopted from https://github.com/hayd/deno-docker)
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get -qq update \
+ && apt-get -qq install -y --no-install-recommends curl ca-certificates unzip \
+ && curl -fsSL https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-x86_64-unknown-linux-gnu.zip \
+         --output deno.zip \
+ && unzip deno.zip \
+ && rm deno.zip \
+ && chmod 755 deno \
+ && mv deno ${DENO_INSTALL_ROOT}/bin/deno \
+ && apt-get -qq remove --purge -y curl ca-certificates unzip \
+ && apt-get -y -qq autoremove \
+ && apt-get -qq clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Create non privileged user to run the application
+RUN useradd --uid ${APP_UID} --user-group ${APP_USER}
+
+# Copy application directory tree
+WORKDIR ${APP_DIR}
+COPY . .
+
+# Set up Deno cache directory
+# Create and install bundle
+# Remove generated files
+# Clear Deno cache directory and set application user as its owner
+ENV DENO_DIR ${APP_DIR}/deno_dir
+RUN mkdir ${DENO_DIR} \
+ && deno bundle --lock ./lock.json \
+                --import-map import_map.json \
+                ./src/main.ts \
+                ${APP_DIR}/app.js \
+ && deno install --no-remote --cached-only \
+                 --root ${DENO_INSTALL_ROOT} --name run \
+                 ${APP_DIR}/app.js \
+ && rm -rf Dockerfile \
+ && rm -rf ${DENO_DIR}/* \
+ && chown ${APP_USER}:${APP_USER} ${DENO_DIR}
+
+# Set up entry point and run as unprivileged user
+ENTRYPOINT ["/usr/local/bin/run"]
+USER ${APP_USER}:${APP_USER}
