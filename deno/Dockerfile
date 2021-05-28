@@ -4,12 +4,13 @@
 # ./lock.json       - lock file for remote dependencies
 
 # Start from slim image
-FROM debian:buster-slim
+FROM debian:stable-slim
 
 # Application user and directory
 ENV APP_USER user
 ENV APP_UID 1234
 ENV APP_DIR /app
+ARG APP_FILES="src assets bin foo bar"
 
 # Deno version and installation directory
 ENV DENO_VERSION=1.10.2
