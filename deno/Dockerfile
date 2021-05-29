@@ -1,18 +1,13 @@
-# Prerequisites:
-# ./src/main.ts     - main entry point of the application
-# ./import_map.json - mappings for imports
-# ./lock.json       - lock file for remote dependencies
-
 ##############
 # Build image
 ##############
 FROM debian:stable-slim AS build
 
-# Deno version
-ENV DENO_VERSION=1.10.2
-
-# Files and directories to include in the application directory (/app)
-ENV APP_FILES="file.txt assets/"
+ARG DENO_VERSION=1.10.2
+ARG ENTRY_POINT="src/main.ts"
+ARG IMPORT_MAP="import_map.json"
+ARG LOCK_FILE="lock.json"
+ARG APP_FILES="file.txt assets/"
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive
@@ -32,9 +27,13 @@ COPY . .
 # Create application bundle (/app) and application runner
 RUN mkdir /app \
   && cp -r ${APP_FILES} /app/ \
-  && deno bundle --lock ./lock.json \
-                 --import-map import_map.json \
-                 ./src/main.ts \
+  && LOCK_FILE_ARG= \
+  && if [ "${LOCK_FILE}" != "" ]; then LOCK_FILE_ARG="--lock ${LOCK_FILE}"; fi \
+  && IMPORT_MAP_ARG= \
+  && if [ "${IMPORT_MAP}" != "" ]; then IMPORT_MAP_ARG="--import-map ${IMPORT_MAP}"; fi \
+  && deno bundle ${LOCK_FILE_ARG} \
+                 ${IMPORT_MAP_ARG} \
+                 ${ENTRY_POINT} \
                  /app/app.js \
   && deno install --no-remote --cached-only \
                   --root /usr/local --name run \
@@ -43,7 +42,7 @@ RUN mkdir /app \
 ################
 # Runtime image
 ################
-FROM debian:stable-slim
+FROM debian:stable-slim as run
 
 # Copy application bundle from build image
 WORKDIR /app
