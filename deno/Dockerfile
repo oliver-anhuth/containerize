@@ -24,7 +24,7 @@ RUN apt-get -qq update \
 WORKDIR /build
 COPY . .
 
-# Create application bundle (/app) and application runner
+# Create application folder, bundle and runner
 RUN mkdir /app \
   && cp -r ${APP_FILES} /app/ \
   && LOCK_FILE_ARG= \
@@ -34,10 +34,10 @@ RUN mkdir /app \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
                  ${ENTRY_POINT} \
-                 /app/app.js \
+                 /usr/local/app.js \
   && deno install --no-remote --cached-only \
                   --root /usr/local --name run \
-                  /app/app.js
+                  /usr/local/app.js
 
 ################
 # Runtime image
@@ -47,6 +47,7 @@ FROM debian:stable-slim as run
 # Copy application bundle from build image
 WORKDIR /app
 COPY --from=build /app .
+COPY --from=build /usr/local/app.js /usr/local/app.js
 COPY --from=build /usr/local/bin/deno /usr/local/bin/deno
 COPY --from=build /usr/local/bin/run /usr/local/bin/run
 
