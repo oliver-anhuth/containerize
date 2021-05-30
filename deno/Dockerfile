@@ -10,6 +10,7 @@ ARG ENTRY_POINT="src/main.ts"
 # Optional, can be ""
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
+ARG APP_PERMISSIONS="--allow-read --allow-write"
 ARG APP_FILES="file.txt assets/"
 
 # Install Deno binary
@@ -39,6 +40,7 @@ RUN mkdir /app \
                  ${ENTRY_POINT} \
                  /usr/local/app.js \
   && deno install --no-remote --cached-only \
+                  ${APP_PERMISSIONS} \
                   --root /usr/local --name run \
                   /usr/local/app.js
 
