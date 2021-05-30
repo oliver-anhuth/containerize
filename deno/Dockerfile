@@ -3,8 +3,11 @@
 ##############
 FROM debian:stable-slim AS build
 
+# Required
 ARG DENO_VERSION=1.10.2
 ARG ENTRY_POINT="src/main.ts"
+
+# Optional, can be ""
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
 ARG APP_FILES="file.txt assets/"
@@ -26,7 +29,7 @@ COPY . .
 
 # Create application folder, bundle and runner
 RUN mkdir /app \
-  && cp -r ${APP_FILES} /app/ \
+  && if [ "${APP_FILES}" != "" ]; then cp -r ${APP_FILES} /app/; fi \
   && LOCK_FILE_ARG= \
   && if [ "${LOCK_FILE}" != "" ]; then LOCK_FILE_ARG="--lock ${LOCK_FILE}"; fi \
   && IMPORT_MAP_ARG= \
