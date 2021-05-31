@@ -1,3 +1,3 @@
 import { hello } from "./hello.ts";
 
-hello(Deno.args[0]);
+await hello(Deno.args[0]);
