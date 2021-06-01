@@ -7,10 +7,11 @@ FROM debian:stable-slim AS build
 ARG DENO_VERSION=1.10.2
 ARG ENTRY_POINT="src/main.ts"
 
-# Optional, can be ""
+# Optional, may be empty (="")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
 ARG APP_PERMISSIONS="--allow-env --allow-net"
+ARG APP_ARGS=""
 ARG APP_FILES="file.txt assets/"
 
 # Install Deno binary
@@ -42,7 +43,7 @@ RUN mkdir /app \
   && deno install --no-remote --cached-only \
                   ${APP_PERMISSIONS} \
                   --root /usr/local --name run \
-                  /usr/local/app.js
+                  /usr/local/app.js ${APP_ARGS}
 
 ################
 # Runtime image
