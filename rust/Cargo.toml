@@ -1,5 +1,5 @@
 [package]
-name = "run"
+name = "hello"
 version = "0.1.0"
 authors = ["Oliver Anhuth <oliver.anhuth@zoho.com>"]
 edition = "2018"

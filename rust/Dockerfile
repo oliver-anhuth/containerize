@@ -4,9 +4,9 @@
 FROM rust:latest AS build
 
 # Required
-ARG EXECUTABLE="run"
+ARG EXECUTABLE="hello"
 
-# Optional, can be ""
+# Optional, may be empty (="")
 ARG APP_FILES="file.txt assets/"
 
 RUN update-ca-certificates
@@ -19,7 +19,9 @@ COPY . .
 RUN mkdir /app \
   && if [ "${APP_FILES}" != "" ]; then cp -r ${APP_FILES} /app/; fi \
   && cargo build --release \
-  && cp target/release/${EXECUTABLE} /usr/local/bin/run
+  && mkdir /app/bin \
+  && cp target/release/${EXECUTABLE} /app/bin/ \
+  && ln -s /app/bin/${EXECUTABLE} /usr/local/bin/run
 
 ################
 # Runtime image
