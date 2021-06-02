@@ -4,10 +4,10 @@
 FROM debian:stable-slim AS build
 
 # Required
-ARG DENO_VERSION=1.10.2
+ARG DENO_VERSION=1.10.3
 ARG ENTRY_POINT="src/main.ts"
 
-# Optional, may be empty (="")
+# Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
 ARG APP_PERMISSIONS="--allow-env --allow-net"
