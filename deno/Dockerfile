@@ -45,9 +45,9 @@ RUN mkdir /app \
                   --root /usr/local --name run \
                   /app/app.js ${APP_ARGS}
 
-################
-# Runtime image
-################
+###################
+# Deployment image
+###################
 FROM debian:stable-slim as run
 
 # Copy application bundle from build image
