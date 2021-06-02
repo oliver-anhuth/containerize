@@ -39,11 +39,11 @@ RUN mkdir /app \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
                  ${ENTRY_POINT} \
-                 /usr/local/app.js \
+                 /app/app.js \
   && deno install --no-remote --cached-only \
                   ${APP_PERMISSIONS} \
                   --root /usr/local --name run \
-                  /usr/local/app.js ${APP_ARGS}
+                  /app/app.js ${APP_ARGS}
 
 ################
 # Runtime image
@@ -53,7 +53,6 @@ FROM debian:stable-slim as run
 # Copy application bundle from build image
 WORKDIR /app
 COPY --from=build /app .
-COPY --from=build /usr/local/app.js /usr/local/app.js
 COPY --from=build /usr/local/bin/deno /usr/local/bin/deno
 COPY --from=build /usr/local/bin/run /usr/local/bin/run
 
