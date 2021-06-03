@@ -10,9 +10,9 @@ ARG ENTRY_POINT="src/main.ts"
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
-ARG APP_PERMISSIONS="--allow-env --allow-net"
+ARG APP_PERMISSIONS="--allow-env --allow-net --allow-read"
 ARG APP_ARGS=""
-ARG APP_FILES="file.txt assets/"
+ARG APP_FILES="www/"
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive

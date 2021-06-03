@@ -1,7 +1,8 @@
-import { sayHello, serveHello } from "./hello.ts";
+import { sayHello } from "./hello.ts";
+import { serve } from "./serve.ts"
 
 if (Deno.args[0] === "--serve") {
-  await serveHello(Deno.args[1]);
+  serve();
 } else {
   sayHello(Deno.args[0]);
 }
