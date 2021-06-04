@@ -1,4 +1,6 @@
-import { Application, Router, send } from "oak/mod.ts";
+import { Application, Context, Router, send, Status } from "oak/mod.ts";
+
+const STATIC_ROOT = "www";
 
 export async function serve() {
   const port = parseInt(Deno.env.get("PORT") || "8080");
@@ -9,17 +11,18 @@ export async function serve() {
   const app = new Application();
 
   const router = new Router()
-    .get("/", async (ctx) => {
-      await send(ctx, "main.html", {
-        root: "www",
-        index: "main.html",
-      });
+    .get("/", async (ctx: Context) => {
+      await send(ctx, "main.html", { root: STATIC_ROOT });
     })
-    .get("/index.html", async (ctx) => {
-      await send(ctx, "main.html", {
-        root: "www",
-        index: "main.html",
-      });
+    .get("/(.*)", async (ctx: Context) => {
+      const path = ctx.request.url.pathname;
+      const fileInfo = Deno.statSync(`${STATIC_ROOT}${path}`);
+      if (!fileInfo.isFile && !fileInfo.isSymlink) {
+        ctx.response.status = Status.NotFound;
+        ctx.response.body = "Not Found";
+        return;
+      }
+      await send(ctx, path, { root: STATIC_ROOT });
     });
 
   app.use(router.routes());
