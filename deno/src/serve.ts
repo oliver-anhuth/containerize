@@ -37,3 +37,7 @@ export async function serve() {
 
   await app.listen({ port });
 }
+
+if (import.meta.main) {
+  await serve();
+}
