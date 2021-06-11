@@ -1,0 +1,17 @@
+{
+  "https://cdn.esm.sh/v41/@types/prop-types@15.7.3/index.d.ts": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+  "https://cdn.esm.sh/v41/@types/react-dom@17.0.2/server.d.ts": "fabcfa2a3fabb1d59bb1507dee3fd1596c9a0b3880a5ae1acc9036aed7a3fd6d",
+  "https://cdn.esm.sh/v41/@types/react-dom@17.0.3/index.d.ts": "0560d7efd20b640f5a57d76ff806eefcf10d4281d74af2fedfbf7998fa29c2e4",
+  "https://cdn.esm.sh/v41/@types/react@17.0.3/global.d.ts": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+  "https://cdn.esm.sh/v41/@types/react@17.0.3/index.d.ts": "e1de9ce074170a460754abff86c7ba39f17e38883b27076b32fc736fe66ca118",
+  "https://cdn.esm.sh/v41/@types/scheduler@0.16.1/tracing.d.ts": "f5a8b384f182b3851cec3596ccc96cb7464f8d3469f48c74bf2befb782a19de5",
+  "https://cdn.esm.sh/v41/csstype@3.0.7/index.d.ts": "0a6f28e1d77b99b0ef7da2f0bf50f301ea8a7eb7b4f573e458e725452a477bd2",
+  "https://cdn.esm.sh/v41/object-assign@4.1.1/deno/object-assign.js": "ddd6433dbe008a045b14a1210a2b37a077e26039850843c724b0a3df0d29625a",
+  "https://cdn.esm.sh/v41/react-dom@17.0.2/deno/react-dom.js": "fce74b5f073d275c4fcdb9ad363bb6c4b6785380aaad52d4e62e19692fcdbea6",
+  "https://cdn.esm.sh/v41/react-dom@17.0.2/deno/server.js": "7994d124158e57a1f6eadc61fe57e8f3af7d5b67e9c6898add8eeec12f7e87fb",
+  "https://cdn.esm.sh/v41/react@17.0.2/deno/react.js": "c63e5ad077c0948ce77f71ff36f9927d4501414e91a25ce162109776c63e07bb",
+  "https://cdn.esm.sh/v41/scheduler@0.20.2/deno/scheduler.js": "d7129bf090cc4ffd3d580f7e09695b8b17344d1cf04f98d0d1de90611048ff3e",
+  "https://esm.sh/react-dom@17.0.2": "0926770d076803cecdc983cf8a390cc3e50c9bafc502a75f32a1ce586397996e",
+  "https://esm.sh/react-dom@17.0.2/server": "4bea0e0fdd3047bab28751674a7228d56eca731f37604d7409f51af16777f198",
+  "https://esm.sh/react@17.0.2": "47941d6b284fa3aa2945ffe0faa69b7e59446d947398db001fc19266e8130093"
+}
