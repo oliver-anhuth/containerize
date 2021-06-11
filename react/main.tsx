@@ -1,14 +1,13 @@
 import React from "react";
-import ReactDomServer from "react-dom-server";
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom-server";
 import { Application, Context, Router } from "oak/mod.ts";
+
+import { App } from "./app.tsx";
 
 const port = parseInt(Deno.env.get("PORT") || "8080");
 if (!port) {
   throw new Error(`Invalid port ${Deno.env.get("PORT")}`);
-}
-
-function App() {
-  return <h1>Hello SSR</h1>;
 }
 
 const html = `
@@ -21,17 +20,14 @@ const html = `
     <title>Document</title>
 </head>
   <body>
-    <main id="app">${ReactDomServer.renderToString(<App />)}</main>
+    <main id="app">${ReactDOMServer.renderToString(<App />)}</main>
     <script type="module">
-      import React from "https://esm.sh/react@17.0.2";
-      import ReactDom from "https://esm.sh/react-dom@17.0.2";
-      ReactDom.hydrate(React.createElement(${App}), document.getElementById("app"));
+      import React from "https://esm.sh/react@${React.version}";
+      import ReactDOM from "https://esm.sh/react-dom@${ReactDOM.version}";
+      ReactDOM.hydrate(React.createElement(${App}), document.getElementById("app"));
     </script>
   </body>
 </html>
-`;
-
-const js = `
 `;
 
 const router = new Router()
