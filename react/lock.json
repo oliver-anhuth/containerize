@@ -6,11 +6,11 @@
   "https://cdn.esm.sh/v41/@types/react@17.0.3/index.d.ts": "e1de9ce074170a460754abff86c7ba39f17e38883b27076b32fc736fe66ca118",
   "https://cdn.esm.sh/v41/@types/scheduler@0.16.1/tracing.d.ts": "f5a8b384f182b3851cec3596ccc96cb7464f8d3469f48c74bf2befb782a19de5",
   "https://cdn.esm.sh/v41/csstype@3.0.7/index.d.ts": "0a6f28e1d77b99b0ef7da2f0bf50f301ea8a7eb7b4f573e458e725452a477bd2",
-  "https://cdn.esm.sh/v41/object-assign@4.1.1/deno/object-assign.js": "ddd6433dbe008a045b14a1210a2b37a077e26039850843c724b0a3df0d29625a",
-  "https://cdn.esm.sh/v41/react-dom@17.0.2/deno/react-dom.js": "fce74b5f073d275c4fcdb9ad363bb6c4b6785380aaad52d4e62e19692fcdbea6",
-  "https://cdn.esm.sh/v41/react-dom@17.0.2/deno/server.js": "7994d124158e57a1f6eadc61fe57e8f3af7d5b67e9c6898add8eeec12f7e87fb",
-  "https://cdn.esm.sh/v41/react@17.0.2/deno/react.js": "c63e5ad077c0948ce77f71ff36f9927d4501414e91a25ce162109776c63e07bb",
-  "https://cdn.esm.sh/v41/scheduler@0.20.2/deno/scheduler.js": "d7129bf090cc4ffd3d580f7e09695b8b17344d1cf04f98d0d1de90611048ff3e",
+  "https://cdn.esm.sh/v41/object-assign@4.1.1/es2015/object-assign.js": "29546eab65efe59e199036020d5771c21365b99cbf856275f25ca227dfebf995",
+  "https://cdn.esm.sh/v41/react-dom@17.0.2/es2015/react-dom.js": "f02d84ea3534f00586d93dbebc268b0dce8296379f180f99f82c50267e5c7c1f",
+  "https://cdn.esm.sh/v41/react-dom@17.0.2/es2015/server.js": "2d41c51ec1004d54f89235df2dad7f4a53ace0997817fe999531f6431e701edf",
+  "https://cdn.esm.sh/v41/react@17.0.2/es2015/react.js": "aaf5a7f8872e92debd6ccd766c5015b5eab99c5fc22b54020004b32f410c071c",
+  "https://cdn.esm.sh/v41/scheduler@0.20.2/es2015/scheduler.js": "f32e6817e0a944f8b53e3eef2c4cdc3ef4509f1b598b5e4d3c8b3ea834abf7ef",
   "https://deno.land/std@0.96.0/_util/assert.ts": "2f868145a042a11d5ad0a3c748dcf580add8a0dbc0e876eaa0026303a5488f58",
   "https://deno.land/std@0.96.0/_util/has_own_property.ts": "f5edd94ed3f3c20c517d812045deb97977e18501c9b7105b5f5c11a31893d7a2",
   "https://deno.land/std@0.96.0/_util/os.ts": "e282950a0eaa96760c0cf11e7463e66babd15ec9157d4c9ed49cc0925686f6a7",
@@ -91,7 +91,7 @@
   "https://deno.land/x/oak@v7.5.0/types.d.ts": "9d960a9080c21c8d076dc9f5246db760ed2d8baf0785db5dd467689fca399929",
   "https://deno.land/x/oak@v7.5.0/util.ts": "59cffee7271e870ce22e9fca9cf64cea94e4af2f36b72f04d62b292d7c0fd63c",
   "https://deno.land/x/path_to_regexp@v6.2.0/index.ts": "e94c04a44bbecac99ff2db2d831afe98b423e627b775cb57fc7935f848c64c51",
-  "https://esm.sh/react-dom@17.0.2": "0926770d076803cecdc983cf8a390cc3e50c9bafc502a75f32a1ce586397996e",
-  "https://esm.sh/react-dom@17.0.2/server": "4bea0e0fdd3047bab28751674a7228d56eca731f37604d7409f51af16777f198",
-  "https://esm.sh/react@17.0.2": "47941d6b284fa3aa2945ffe0faa69b7e59446d947398db001fc19266e8130093"
+  "https://esm.sh/react-dom@17.0.2/server?target=es2015": "13dc8c3c95e6d37ef956684b1c6f82739077f90b8c1c695bb8b970a75f3c3f83",
+  "https://esm.sh/react-dom@17.0.2?target=es2015": "8685ecb4573bbcab855abdc68134712c585b9f6446adcd07a07723966512bf99",
+  "https://esm.sh/react@17.0.2?target=es2015": "5b94260f0fdd00e9802aefc11a8208553d784e8c984e51a99b739940452d815b"
 }
