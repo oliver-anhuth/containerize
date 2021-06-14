@@ -25,5 +25,10 @@ OUT_DIR=build
 if [ "$BUILD_TYPE" == "development" ]; then
     OUT_DIR=dev_build
 fi
+
+if [ ! -e "$OUT_DIR" ]; then
+    x/build "$BUILD_TYPE"
+fi
+
 cd "$OUT_DIR"
 exec deno run --allow-read --allow-env --allow-net serve.js
