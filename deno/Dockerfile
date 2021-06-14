@@ -50,6 +50,9 @@ RUN mkdir /app \
 ###################
 FROM debian:stable-slim as run
 
+ARG USER=user
+ARG UID=1234
+
 # Copy application bundle from build image
 WORKDIR /app
 COPY --from=build /app .
@@ -57,8 +60,6 @@ COPY --from=build /usr/local/bin/deno /usr/local/bin/deno
 COPY --from=build /usr/local/bin/run /usr/local/bin/run
 
 # Create unprivileged user to run the application
-ARG USER=user
-ARG UID=1234
 RUN useradd --uid ${UID} --user-group ${USER} \
   && mkdir /home/${USER} \
   && chown ${USER}:${USER} /home/${USER}

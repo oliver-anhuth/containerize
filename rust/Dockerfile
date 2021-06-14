@@ -28,6 +28,9 @@ RUN mkdir /app \
 ###################
 FROM debian:stable-slim as run
 
+ARG USER=user
+ARG UID=1234
+
 # Copy application folder from build image
 WORKDIR /app
 COPY --from=build /app .
@@ -37,8 +40,6 @@ RUN ln -s "$(cat /app/app-exe-path-fdb6b4b7-0ff2-4854-8f61-42bbe5675a6b)" /usr/l
   && rm /app/app-exe-path-fdb6b4b7-0ff2-4854-8f61-42bbe5675a6b
 
 # Create unprivileged user to run the application
-ARG USER=user
-ARG UID=1234
 RUN useradd --uid ${UID} --user-group ${USER} \
   && mkdir /home/${USER} \
   && chown ${USER}:${USER} /home/${USER}
