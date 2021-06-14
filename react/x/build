@@ -1,0 +1,62 @@
+#!/bin/bash
+set -e
+
+BUILD_TYPE=production
+CACHE_RELOAD=no
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --development | --develop | --dev )
+            BUILD_TYPE=development
+            ;;
+        --production | --prod )
+            BUILD_TYPE=production
+            ;;
+        --clean )
+            BUILD_TYPE=clean
+            ;;
+        --reload )
+            CACHE_RELOAD=yes
+            ;;
+        * )
+            echo "Invalid invocation"
+            false
+    esac
+    shift
+done
+
+IMPORT_MAP="--import-map import_map.json"
+LOCK="--lock lock.json"
+if [ "$BUILD_TYPE" = "development" ]; then
+    IMPORT_MAP="--import-map dev_import_map.json"
+    LOCK=""
+fi
+
+rm -rf build
+
+if [ "$CACHE_RELOAD" == "yes" ]; then
+    LOCK_WRITE=""
+    if [ "$LOCK" != "" ]; then
+        LOCK_WRITE="--lock-write"
+    fi
+    deno cache --reload $LOCK_WRITE $LOCK $IMPORT_MAP app.tsx html.tsx serve.ts
+fi
+
+if [ "$BUILD_TYPE" = "clean" ]; then
+    exit 0
+fi
+
+mkdir -p build
+deno bundle $LOCK $IMPORT_MAP serve.ts build/serve.js
+deno bundle $LOCK $IMPORT_MAP app.tsx build/app.js
+deno run $LOCK $IMPORT_MAP html.tsx > build/app.html
+cat << EOF > build/serve.sh
+#!/bin/sh
+exec deno run --allow-read --allow-env --allow-net serve.js
+EOF
+chmod +x build/serve.sh
+touch "build/$BUILD_TYPE"
+cat << EOF > build/build.info
+BUILD_TYPE=$BUILD_TYPE
+BUILD_DATE=$(date --utc --rfc-3339=s)
+EOF
