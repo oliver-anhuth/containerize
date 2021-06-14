@@ -6,20 +6,24 @@ CACHE_RELOAD=no
 
 while [ $# -gt 0 ]; do
     case "$1" in
-        --development | --develop | --dev )
+        development | develop | dev )
             BUILD_TYPE=development
             ;;
-        --production | --prod )
+        production | prod )
             BUILD_TYPE=production
             ;;
-        --clean )
+        clean )
             BUILD_TYPE=clean
             ;;
         --reload )
             CACHE_RELOAD=yes
             ;;
         * )
-            echo "Invalid invocation"
+            echo "Usage: build [--reload] BUILD_TYPE"
+            echo
+            echo "BUILD_TYPE: production | prod"
+            echo "            development | develop | dev"
+            echo "            clean"
             false
     esac
     shift
@@ -32,8 +36,6 @@ if [ "$BUILD_TYPE" = "development" ]; then
     LOCK=""
 fi
 
-rm -rf build
-
 if [ "$CACHE_RELOAD" == "yes" ]; then
     LOCK_WRITE=""
     if [ "$LOCK" != "" ]; then
@@ -43,20 +45,13 @@ if [ "$CACHE_RELOAD" == "yes" ]; then
 fi
 
 if [ "$BUILD_TYPE" = "clean" ]; then
+    rm -rf build
     exit 0
 fi
 
-mkdir -p build
-deno bundle $LOCK $IMPORT_MAP serve.ts build/serve.js
-deno bundle $LOCK $IMPORT_MAP app.tsx build/app.js
-deno run $LOCK $IMPORT_MAP html.tsx > build/app.html
-cat << EOF > build/serve.sh
-#!/bin/sh
-exec deno run --allow-read --allow-env --allow-net serve.js
-EOF
-chmod +x build/serve.sh
-touch "build/$BUILD_TYPE"
-cat << EOF > build/build.info
-BUILD_TYPE=$BUILD_TYPE
-BUILD_DATE=$(date --utc --rfc-3339=s)
-EOF
+OUT_DIR="build/$BUILD_TYPE"
+rm -rf $OUT_DIR
+mkdir -p "$OUT_DIR"
+deno bundle $LOCK $IMPORT_MAP serve.ts "$OUT_DIR/serve.js"
+deno bundle $LOCK $IMPORT_MAP app.tsx "$OUT_DIR/app.js"
+deno run $LOCK $IMPORT_MAP html.tsx > "$OUT_DIR/app.html"

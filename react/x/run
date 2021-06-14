@@ -1,3 +1,26 @@
 #!/bin/bash
-cd build
-./serve.sh
+set -e
+
+BUILD_TYPE=production
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        development | develop | dev )
+            BUILD_TYPE=development
+            ;;
+        production | prod )
+            BUILD_TYPE=production
+            ;;
+        * )
+            echo "Usage: run BUILD_TYPE"
+            echo
+            echo "BUILD_TYPE: production | prod"
+            echo "            development | develop | dev"
+            false
+    esac
+    shift
+done
+
+OUT_DIR="build/$BUILD_TYPE"
+cd "$OUT_DIR"
+exec deno run --allow-read --allow-env --allow-net serve.js
