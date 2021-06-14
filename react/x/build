@@ -45,11 +45,14 @@ if [ "$CACHE_RELOAD" == "yes" ]; then
 fi
 
 if [ "$BUILD_TYPE" = "clean" ]; then
-    rm -rf build
+    rm -rf build dev_build
     exit 0
 fi
 
-OUT_DIR="build/$BUILD_TYPE"
+OUT_DIR=build
+if [ "$BUILD_TYPE" == "development" ]; then
+    OUT_DIR=dev_build
+fi
 rm -rf $OUT_DIR
 mkdir -p "$OUT_DIR"
 deno bundle $LOCK $IMPORT_MAP serve.ts "$OUT_DIR/serve.js"

@@ -21,6 +21,9 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-OUT_DIR="build/$BUILD_TYPE"
+OUT_DIR=build
+if [ "$BUILD_TYPE" == "development" ]; then
+    OUT_DIR=dev_build
+fi
 cd "$OUT_DIR"
 exec deno run --allow-read --allow-env --allow-net serve.js
