@@ -5,14 +5,14 @@ FROM debian:stable-slim AS build
 
 # Required
 ARG DENO_VERSION=1.11.0
-ARG ENTRY_POINT="src/main.ts"
+ARG ENTRY_POINT="main.ts"
 
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
-ARG APP_PERMISSIONS="--allow-env --allow-net --allow-read"
+ARG APP_PERMISSIONS=""
 ARG APP_ARGS=""
-ARG APP_FILES="www/"
+ARG APP_FILES=""
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive
