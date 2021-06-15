@@ -12,18 +12,14 @@ while [ $# -gt 0 ]; do
         production | prod )
             BUILD_TYPE=production
             ;;
-        clean )
-            BUILD_TYPE=clean
-            ;;
         --reload )
             CACHE_RELOAD=yes
             ;;
         * )
             echo "Usage: build [--reload] BUILD_TYPE"
             echo
-            echo "BUILD_TYPE: production | prod"
+            echo "BUILD_TYPE: production | prod (default)"
             echo "            development | develop | dev"
-            echo "            clean"
             false
     esac
     shift
@@ -36,7 +32,7 @@ if [ "$BUILD_TYPE" = "development" ]; then
     LOCK=""
 fi
 
-if [ "$CACHE_RELOAD" == "yes" ]; then
+if [ "$CACHE_RELOAD" = "yes" ]; then
     LOCK_WRITE=""
     if [ "$LOCK" != "" ]; then
         LOCK_WRITE="--lock-write"
@@ -44,15 +40,11 @@ if [ "$CACHE_RELOAD" == "yes" ]; then
     deno cache --reload $LOCK_WRITE $LOCK $IMPORT_MAP app.tsx html.tsx serve.ts
 fi
 
-if [ "$BUILD_TYPE" = "clean" ]; then
-    rm -rf build dev_build
-    exit 0
-fi
-
 OUT_DIR=build
-if [ "$BUILD_TYPE" == "development" ]; then
+if [ "$BUILD_TYPE" = "development" ]; then
     OUT_DIR=dev_build
 fi
+
 rm -rf $OUT_DIR
 mkdir -p "$OUT_DIR"
 deno bundle $LOCK $IMPORT_MAP serve.ts "$OUT_DIR/serve.js"
