@@ -16,7 +16,7 @@ const html = `
     <main id="root">${ReactDOMServer.renderToString(<App />)}</main>
     <script type="module">
       import { hydrate } from "./app.js";
-      mount(document.getElementById("root"));
+      hydrate(document.getElementById("root"));
     </script>
   </body>
 </html>
