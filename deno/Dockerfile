@@ -12,7 +12,7 @@ ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
 ARG APP_PERMISSIONS=""
 ARG APP_ARGS=""
-ARG APP_FILES=""
+ARG APP_FILES="file.txt assets"
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive
