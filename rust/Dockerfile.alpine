@@ -1,7 +1,7 @@
 ##############
 # Build image
 ##############
-FROM rust:latest AS build
+FROM rust:slim AS build
 
 # Required
 ARG EXECUTABLE="hello"
@@ -26,7 +26,7 @@ RUN mkdir /app \
 ###################
 # Deployment image
 ###################
-FROM frolvlad/alpine-glibc as run
+FROM docker.io/frolvlad/alpine-glibc as run
 
 ARG USER=user
 ARG UID=1234

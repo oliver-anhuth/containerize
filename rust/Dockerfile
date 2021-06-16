@@ -1,7 +1,7 @@
 ##############
 # Build image
 ##############
-FROM rust:latest AS build
+FROM rust:slim AS build
 
 # Required
 ARG EXECUTABLE="hello"
