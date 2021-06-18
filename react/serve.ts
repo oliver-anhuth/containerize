@@ -13,6 +13,10 @@ async function serve(): Promise<void> {
       // Serve HTML page
       await send(ctx, "app.html", { root: "." });
     })
+    .get("/app.css", async (ctx) => {
+      // Serve style sheet
+      await send(ctx, "app.css", { root: "." });
+    })
     .get("/app.js", async (ctx) => {
       // Serve JavaScript aplication bundle
       await send(ctx, "app.js", { root: "." });
