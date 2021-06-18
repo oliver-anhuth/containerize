@@ -35,16 +35,16 @@ RUN mkdir /app \
   && if [ "${IMPORT_MAP}" != "" ]; then IMPORT_MAP_ARG="--import-map ${IMPORT_MAP}"; fi \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
-                 serve.ts \
-                 /app/serve.js \
-  && deno bundle ${LOCK_FILE_ARG} \
-                 ${IMPORT_MAP_ARG} \
                  app.tsx \
                  /app/app.js \
   && deno run ${LOCK_FILE_ARG} \
               ${IMPORT_MAP_ARG} \
               html.tsx \
               > /app/app.html \
+  && deno bundle ${LOCK_FILE_ARG} \
+                 ${IMPORT_MAP_ARG} \
+                 serve.ts \
+                 /app/serve.js \
   && deno install --no-remote --cached-only \
                   --allow-env --allow-read --allow-net \
                   --root /usr/local --name serve \

@@ -33,8 +33,6 @@ RUN mkdir /app \
   && if [ "${LOCK_FILE}" != "" ]; then LOCK_FILE_ARG="--lock ${LOCK_FILE}"; fi \
   && IMPORT_MAP_ARG= \
   && if [ "${IMPORT_MAP}" != "" ]; then IMPORT_MAP_ARG="--import-map ${IMPORT_MAP}"; fi \
-  && cargo build --release --manifest-path serve/Cargo.toml \
-  && cp serve/target/release/serve /usr/local/bin/ \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
                  app.tsx \
@@ -42,12 +40,14 @@ RUN mkdir /app \
   && deno run ${LOCK_FILE_ARG} \
               ${IMPORT_MAP_ARG} \
               html.tsx \
-              > /app/app.html
+              > /app/app.html \
+  && cargo build --release --manifest-path serve/Cargo.toml \
+  && cp serve/target/release/serve /usr/local/bin/
 
 ###################
 # Deployment image
 ###################
-FROM frolvlad/alpine-glibc as run
+FROM debian:stable-slim as run
 
 ARG USER=user
 ARG UID=1234
@@ -58,8 +58,9 @@ COPY --from=build /app .
 COPY --from=build /usr/local/bin/serve /usr/local/bin/serve
 
 # Create unprivileged user to run the application
-RUN addgroup --gid ${UID} ${USER} \
-  && adduser --uid ${UID} --disabled-password ${USER} --ingroup ${USER}
+RUN useradd --uid ${UID} --user-group ${USER} \
+  && mkdir /home/${USER} \
+  && chown ${USER}:${USER} /home/${USER}
 
 # Run as unprivileged user
 USER ${USER}:${USER}
