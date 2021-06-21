@@ -4,7 +4,7 @@
 FROM rust:slim AS build
 
 # Required
-ARG DENO_VERSION=1.11.0
+ARG DENO_VERSION=1.11.1
 
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"

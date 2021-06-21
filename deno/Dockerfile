@@ -4,7 +4,7 @@
 FROM debian:stable-slim AS build
 
 # Required
-ARG DENO_VERSION=1.11.0
+ARG DENO_VERSION=1.11.1
 ARG ENTRY_POINT="main.ts"
 
 # Optional, may be empty ("")
