@@ -9,8 +9,9 @@ const html = `
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./app.svg">
     <link rel="stylesheet" href="./app.css">
-    <title>Document</title>
+    <title>Hello</title>
 </head>
   <body>
     <main id="root">${ReactDOMServer.renderToString(<App />)}</main>

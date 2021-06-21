@@ -9,7 +9,7 @@ ARG DENO_VERSION=1.11.1
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
-ARG APP_FILES="app.css"
+ARG APP_FILES="app.css app.svg"
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive
