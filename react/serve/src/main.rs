@@ -1,8 +1,19 @@
+use std::env;
 use warp::{self, Filter};
+
+fn get_port() -> u16 {
+    let port = env::var("PORT");
+    if let Ok(port) = port {
+        if let Ok(port) = port.parse() {
+            return port;
+        }
+    }
+    8080
+}
 
 #[tokio::main]
 async fn main() {
-    let port = 8080;
+    let port = get_port();
     let html = warp::get()
         .and(warp::path::end())
         .and(warp::fs::file("app.html"));
