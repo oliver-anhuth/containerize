@@ -37,7 +37,7 @@ if [ "$CACHE_RELOAD" = "yes" ]; then
     if [ "$LOCK" != "" ]; then
         LOCK_WRITE="--lock-write"
     fi
-    deno cache --reload $LOCK_WRITE $LOCK $IMPORT_MAP app.tsx html.tsx serve.ts
+    deno cache --reload $LOCK_WRITE $LOCK $IMPORT_MAP src/app.tsx src/html.tsx src/serve.ts
 fi
 
 OUT_DIR=build
@@ -47,7 +47,7 @@ fi
 
 rm -rf $OUT_DIR
 mkdir -p "$OUT_DIR"
-deno bundle $LOCK $IMPORT_MAP serve.ts "$OUT_DIR/serve.js"
-deno bundle $LOCK $IMPORT_MAP app.tsx "$OUT_DIR/app.js"
-deno run $LOCK $IMPORT_MAP html.tsx > "$OUT_DIR/app.html"
-cp app.css app.svg "$OUT_DIR/"
+deno bundle $LOCK $IMPORT_MAP src/serve.ts "$OUT_DIR/serve.js"
+deno bundle $LOCK $IMPORT_MAP src/app.tsx "$OUT_DIR/app.js"
+deno run $LOCK $IMPORT_MAP src/html.tsx > "$OUT_DIR/app.html"
+cp src/app.css src/app.svg "$OUT_DIR/"

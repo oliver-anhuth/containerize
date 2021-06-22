@@ -9,7 +9,7 @@ ARG DENO_VERSION=1.11.1
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
 ARG LOCK_FILE="lock.json"
-ARG APP_FILES="app.css app.svg"
+ARG APP_FILES="src/app.css src/app.svg"
 
 # Install Deno binary
 ENV DEBIAN_FRONTEND=noninteractive
@@ -35,15 +35,15 @@ RUN mkdir /app \
   && if [ "${IMPORT_MAP}" != "" ]; then IMPORT_MAP_ARG="--import-map ${IMPORT_MAP}"; fi \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
-                 app.tsx \
+                 src/app.tsx \
                  /app/app.js \
   && deno run ${LOCK_FILE_ARG} \
               ${IMPORT_MAP_ARG} \
-              html.tsx \
+              src/html.tsx \
               > /app/app.html \
   && deno bundle ${LOCK_FILE_ARG} \
                  ${IMPORT_MAP_ARG} \
-                 serve.ts \
+                 src/serve.ts \
                  /app/serve.js \
   && deno install --no-remote --cached-only \
                   --allow-env --allow-read --allow-net \

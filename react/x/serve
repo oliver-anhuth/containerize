@@ -11,7 +11,7 @@ while [ $# -gt 0 ]; do
             BUILD_TYPE=production
             ;;
         * )
-            echo "Usage: run BUILD_TYPE"
+            echo "Usage: serve BUILD_TYPE"
             echo
             echo "BUILD_TYPE: production | prod (default)"
             echo "            development | develop | dev"
