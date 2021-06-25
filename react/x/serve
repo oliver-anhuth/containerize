@@ -20,9 +20,9 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-OUT_DIR=build
+OUT_DIR=dist
 if [ "$BUILD_TYPE" = "development" ]; then
-    OUT_DIR=dev_build
+    OUT_DIR=dev_dist
 fi
 
 if [ ! -e "$OUT_DIR" ]; then

@@ -1,4 +1,3 @@
 #!/bin/sh
 set -e
-rm -rf build
-rm -rf dev_build
+rm -rf dist dev_dist

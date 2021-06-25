@@ -40,9 +40,9 @@ if [ "$CACHE_RELOAD" = "yes" ]; then
     deno cache --reload $LOCK_WRITE $LOCK $IMPORT_MAP src/app.tsx src/html.tsx src/serve.ts
 fi
 
-OUT_DIR=build
+OUT_DIR=dist
 if [ "$BUILD_TYPE" = "development" ]; then
-    OUT_DIR=dev_build
+    OUT_DIR=dev_dist
 fi
 
 rm -rf $OUT_DIR
