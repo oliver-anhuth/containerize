@@ -4,7 +4,7 @@
 FROM debian:stable-slim AS build
 
 # Required
-ARG DENO_VERSION=1.11.1
+ARG DENO_VERSION=1.12.2
 
 # Optional, may be empty ("")
 ARG IMPORT_MAP="import_map.json"
